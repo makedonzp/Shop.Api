@@ -10,7 +10,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.updateProduct = exports.createProduct = exports.getProductById = exports.getProducts = void 0;
-const productModel_1 = require("../models/productModel");
+const productModel_1 = require("../models/productModel"); // Импортируем db и Product
 const getProducts = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const [products] = yield productModel_1.db.query('SELECT * FROM products');
@@ -23,9 +23,6 @@ const getProducts = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
 exports.getProducts = getProducts;
 const getProductById = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     const { id } = req.params;
-    if (!id) {
-        return res.status(400).send('Bad request');
-    }
     try {
         const [rows] = yield productModel_1.db.query('SELECT * FROM products WHERE id = ?', [id]);
         if (!rows || rows.length === 0) {
@@ -41,9 +38,6 @@ const getProductById = (req, res, next) => __awaiter(void 0, void 0, void 0, fun
 exports.getProductById = getProductById;
 const createProduct = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     const { title, description, price } = req.body;
-    if (!title || !description || !price) {
-        return res.status(400).send('Bad request');
-    }
     try {
         yield productModel_1.db.query('INSERT INTO products (title, description, price) VALUES (?, ?, ?)', [title, description, price]);
         res.redirect('/admin/products');
@@ -55,13 +49,7 @@ const createProduct = (req, res, next) => __awaiter(void 0, void 0, void 0, func
 exports.createProduct = createProduct;
 const updateProduct = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     const { id } = req.params;
-    if (!id) {
-        return res.status(400).send('Bad request');
-    }
     const { title, description, price } = req.body;
-    if (!title || !description || !price) {
-        return res.status(400).send('Bad request');
-    }
     try {
         yield productModel_1.db.query('UPDATE products SET title = ?, description = ?, price = ? WHERE id = ?', [title, description, price, id]);
         res.redirect(`/admin/products/${id}`);
