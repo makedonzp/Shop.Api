@@ -8,7 +8,7 @@
     "start:api": "npm start --prefix Shop.API",
     "start:admin": "npm start --prefix Shop.Admin",
     "start:client": "npm start --prefix Shop.Client",
-    "build": "concurrently \"npm run build --prefix Shop.API\" \"npm run build --prefix Shop.Admin\"",
+    "build": "npx concurrently \"npm run build --prefix Shop.API\" \"npm run build --prefix Shop.Admin\"",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
