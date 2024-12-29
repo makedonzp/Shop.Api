@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import styles from './AdminProductManager.module.css'; // Импорт стилей
+import { Col, Container, Row } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 
 interface Product {
   id: number;
@@ -55,10 +57,27 @@ const AdminProductManager: React.FC = () => {
   };
 
   return (
-    <div className={styles.container}>
-      <h1>Управление товарами</h1>
+    <Container fluid className={styles.containerFluid}>
+      <Row>
+            <Col>
+            <Link className={styles.backBnt} to={"/"}>Назад</Link>
+            </Col>
+        </Row>
+    <Container className={styles.container}>
+      
+      <Row>
+        <Col>
+          <h1>Управление товарами</h1>
+        </Col>
+      </Row>
 
-      <form onSubmit={handleAddProduct} className={styles.form}>
+      <Row>
+        <Col className={styles.Col}>
+        <form onSubmit={handleAddProduct} className={styles.form}>
+          <div>
+            <h3>Добавить товар</h3>
+          </div>
+        <div>
         <div>
           <label>Название:</label>
           <input
@@ -86,21 +105,39 @@ const AdminProductManager: React.FC = () => {
             required
           />
         </div>
+        </div>
+        <div className={styles.btnWrapper}>
         <button type="submit">Добавить товар</button>
+        </div>
       </form>
-
+        </Col>
+      </Row>
+      <Row>
+        <Col>
       <h2>Список товаров</h2>
-      <ul className={styles.productList}>
+
+        </Col>
+      </Row>
+      <Row>
+        <Col>
+        <ul className={styles.productList}>
         {products.map((product) => (
           <li key={product.id} className={styles.productItem}>
+            <div className={styles.textCards}>
             <h3>{product.title}</h3>
             <p>{product.description}</p>
             <p>Цена: ${product.price}</p>
+            </div>
+            
             <button onClick={() => handleDeleteProduct(product.id)}>Удалить</button>
           </li>
         ))}
       </ul>
-    </div>
+        </Col>
+      </Row>
+      
+    </Container>
+    </Container>
   );
 };
 

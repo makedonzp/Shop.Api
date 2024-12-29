@@ -1,22 +1,45 @@
+.containerFluid {
+  background-color: #0056b3;
+  min-height: 100vh;
+  padding: 40px;
+}
 .container {
-  max-width: 800px;
   margin: 0 auto;
   padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
 }
 
 .form {
-  margin-bottom: 20px;
+  display: flex;
+  height: 500px;
+  width: 600px;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 50px;
+  border: 1px solid #000;
+  padding: 40px;
+  border-radius: 16px;
+  background-color: #ddd;
 }
-
+.Col {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 .form label {
   display: block;
-  margin-bottom: 5px;
   font-weight: bold;
 }
-
+.btnWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+}
 .form input {
   width: 100%;
-  padding: 8px;
+  padding: 11px;
   margin-bottom: 10px;
   border: 1px solid #ccc;
   border-radius: 4px;
@@ -66,4 +89,55 @@
 
 .productItem button:hover {
   background-color: #c82333;
+}
+.productList {
+  list-style: none;
+  padding: 0;
+  overflow-y: scroll;
+  flex-wrap: wrap;
+  max-height: 500px;
+  display: flex;
+  gap: 23px;
+  margin: 0 auto;
+  background-color: #737373;
+  padding: 10px 5px 10px 5px;
+}
+.containerFluid {
+  padding: 40px;
+}
+.backBnt {
+  color: #ddd;
+  font-size: 20px;
+  text-decoration: none;
+}
+.productItem {
+  border: 1px solid #ddd;
+  padding: 18px;
+  margin-bottom: 10px;
+  border-radius: 16px;
+  min-height: 400px;
+  width: 300px;
+  background-color: #ddd;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 40px;
+}
+.textCards {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  justify-content: space-between;
+}
+.productItem a {
+  text-decoration: none;
+  color: #000000;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 20px;
+  height: 100%;
+}
+.productItem h2 {
+  margin: 0 0 10px;
 }

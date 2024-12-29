@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import styles from './ProductDetailPage.module.css'; // Импорт стилей
+import { Col, Container, Row } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 
 interface Product {
   id: number;
@@ -23,13 +25,25 @@ const ProductDetailPage: React.FC = () => {
   if (!product) return <div className={styles.container}>Загрузка...</div>;
 
   return (
-    <div className={styles.container}>
-      <div className={styles.productDetail}>
-        <h1>{product.title}</h1>
-        <p>{product.description}</p>
-        <p>Цена: ${product.price}</p>
-      </div>
-    </div>
+    <Container fluid className={styles.containerFluid}>
+        <Row>
+            <Col>
+            <Link className={styles.backBnt} to={"/products"}>Назад</Link>
+            </Col>
+        </Row>
+    <Container className={styles.container}>
+        <Row>
+            <Col>
+                <div className={styles.productDetail}>
+                    <h1>{product.title}</h1>
+                    <p>{product.description}</p>
+                    <p>Цена: ${product.price}</p>
+                </div>
+            </Col>
+        </Row>
+      
+    </Container>
+    </Container>
   );
 };
 
