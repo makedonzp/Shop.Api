@@ -12,6 +12,12 @@ export const getProducts = async (req: Request, res: Response) => {
 
 export const getProductById = async (req: Request, res: Response, next: NextFunction) => {
     const { id } = req.params;
+
+    // Проверка наличия id
+    if (!id) {
+        return res.status(400).send('Bad request: ID is required');
+    }
+
     try {
         const [rows] = await db.query<Product[]>('SELECT * FROM products WHERE id = ?', [id]);
         if (!rows || rows.length === 0) {
@@ -26,6 +32,12 @@ export const getProductById = async (req: Request, res: Response, next: NextFunc
 
 export const createProduct = async (req: Request, res: Response, next: NextFunction) => {
     const { title, description, price } = req.body;
+
+    // Проверка наличия обязательных полей
+    if (!title || !description || !price) {
+        return res.status(400).send('Bad request: Title, description, and price are required');
+    }
+
     try {
         await db.query(
             'INSERT INTO products (title, description, price) VALUES (?, ?, ?)',
@@ -40,6 +52,17 @@ export const createProduct = async (req: Request, res: Response, next: NextFunct
 export const updateProduct = async (req: Request, res: Response, next: NextFunction) => {
     const { id } = req.params;
     const { title, description, price } = req.body;
+
+    // Проверка наличия id
+    if (!id) {
+        return res.status(400).send('Bad request: ID is required');
+    }
+
+    // Проверка наличия обязательных полей
+    if (!title || !description || !price) {
+        return res.status(400).send('Bad request: Title, description, and price are required');
+    }
+
     try {
         await db.query(
             'UPDATE products SET title = ?, description = ?, price = ? WHERE id = ?',
