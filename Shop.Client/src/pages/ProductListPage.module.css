@@ -1,0 +1,29 @@
+.container {
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.productList {
+  list-style: none;
+  padding: 0;
+  overflow-y: scroll;
+  max-height: 500px;
+}
+
+.productItem {
+  border: 1px solid #ddd;
+  padding: 15px;
+  margin-bottom: 10px;
+  border-radius: 4px;
+}
+.productItem a {
+  text-decoration: none;
+  color: #444444;
+}
+.productItem h2 {
+  margin: 0 0 10px;
+}
+
+.productItem p {
+  margin: 0 0 10px;
+}
