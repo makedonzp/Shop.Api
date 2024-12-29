@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
-import { db } from '../models/productModel'; 
-import { Product } from '../models/productModel';
+import { db, Product } from '../models/productModel'; // Импортируем db и Product
+
 export const getProducts = async (req: Request, res: Response) => {
     try {
         const [products] = await db.query<Product[]>('SELECT * FROM products');
@@ -12,9 +12,6 @@ export const getProducts = async (req: Request, res: Response) => {
 
 export const getProductById = async (req: Request, res: Response, next: NextFunction) => {
     const { id } = req.params;
-    if (!id) {
-        return res.status(400).send('Bad request');
-    }
     try {
         const [rows] = await db.query<Product[]>('SELECT * FROM products WHERE id = ?', [id]);
         if (!rows || rows.length === 0) {
@@ -29,9 +26,6 @@ export const getProductById = async (req: Request, res: Response, next: NextFunc
 
 export const createProduct = async (req: Request, res: Response, next: NextFunction) => {
     const { title, description, price } = req.body;
-    if (!title || !description || !price) {
-        return res.status(400).send('Bad request');
-    }
     try {
         await db.query(
             'INSERT INTO products (title, description, price) VALUES (?, ?, ?)',
@@ -45,13 +39,7 @@ export const createProduct = async (req: Request, res: Response, next: NextFunct
 
 export const updateProduct = async (req: Request, res: Response, next: NextFunction) => {
     const { id } = req.params;
-    if (!id) {
-        return res.status(400).send('Bad request');
-    }
     const { title, description, price } = req.body;
-    if (!title || !description || !price) {
-        return res.status(400).send('Bad request');
-    }
     try {
         await db.query(
             'UPDATE products SET title = ?, description = ?, price = ? WHERE id = ?',
