@@ -8,7 +8,7 @@
     "start:api": "npm start --prefix Shop.API",
     "start:admin": "npm start --prefix Shop.Admin",
     "start:client": "npm start --prefix Shop.Client",
-    "build": "npm-run-all build:api build:admin build:client",
+    "build": "npx npm-run-all build:api build:admin build:client",
     "build:api": "npm run build --prefix Shop.API",
     "build:admin": "npm run build --prefix Shop.Admin",
     "build:client": "npm run build --prefix Shop.Client",
