@@ -23,6 +23,10 @@ const getProducts = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
 exports.getProducts = getProducts;
 const getProductById = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     const { id } = req.params;
+    // Проверка наличия id
+    if (!id) {
+        return res.status(400).send('Bad request: ID is required');
+    }
     try {
         const [rows] = yield productModel_1.db.query('SELECT * FROM products WHERE id = ?', [id]);
         if (!rows || rows.length === 0) {
@@ -38,6 +42,10 @@ const getProductById = (req, res, next) => __awaiter(void 0, void 0, void 0, fun
 exports.getProductById = getProductById;
 const createProduct = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     const { title, description, price } = req.body;
+    // Проверка наличия обязательных полей
+    if (!title || !description || !price) {
+        return res.status(400).send('Bad request: Title, description, and price are required');
+    }
     try {
         yield productModel_1.db.query('INSERT INTO products (title, description, price) VALUES (?, ?, ?)', [title, description, price]);
         res.redirect('/admin/products');
@@ -50,6 +58,14 @@ exports.createProduct = createProduct;
 const updateProduct = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     const { id } = req.params;
     const { title, description, price } = req.body;
+    // Проверка наличия id
+    if (!id) {
+        return res.status(400).send('Bad request: ID is required');
+    }
+    // Проверка наличия обязательных полей
+    if (!title || !description || !price) {
+        return res.status(400).send('Bad request: Title, description, and price are required');
+    }
     try {
         yield productModel_1.db.query('UPDATE products SET title = ?, description = ?, price = ? WHERE id = ?', [title, description, price, id]);
         res.redirect(`/admin/products/${id}`);
